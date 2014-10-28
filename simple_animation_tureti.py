@@ -3,20 +3,20 @@
 import matplotlib
 matplotlib.use('GTK')
 import numpy as np
-import pylab as pl
+import matplotlib.pyplot as plt
 import time
 
-
-pl.ion()
+plt.ion()
 
 xdata = np.arange(0,6*np.pi,0.01)
 
-func = lambda x,p: np.sin(p)*np.sin(x)
+func = lambda x ,p: np.sin(x)*np.cos(p)
 
-line, = pl.plot(xdata,func(xdata,0))
-pl.ylim(-1.5,1.5)
+#line, = plt.plot(xdata,func(xdata,0))
+fig, ax = plt.subplots()
+line, = ax.plot( xdata, func(xdata,0))
 
-for value in np.arange(0,7,0.1):
-    line.set_ydata(func(xdata,value))
-    pl.draw()
-    time.sleep(0.05)
+for value in np.arange( 0, 7, 0.05):
+    line.set_ydata( func( xdata, value))
+    plt.draw()
+    time.sleep(0.02)
