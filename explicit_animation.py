@@ -2,23 +2,21 @@
 
 import matplotlib.animation as animation
 import numpy as np
-import pylab as pl
+import matplotlib.pyplot as plt
 
-#pl.ion()
-
-fig = pl.figure()
-pl.ylim(-1.5,1.5)
-xdata = np.arange(0,6*np.pi,0.01)
-func = lambda x,p: np.sin(p)*np.sin(x)
-line, = pl.plot(xdata, func(xdata,0))
+fig = plt.figure()
+xdata = np.arange( 0, 6*np.pi, 0.01)
+func = lambda x, p: np.sin(x)*np.cos(p)
+line1, = plt.plot( xdata, func( xdata, 0))
+line2, = plt.plot( xdata, func( 0, xdata))
 
 def update(i):
-    line.set_ydata(func(xdata,0.1*i))
-    return line
-#keep reference to Line2D-object.
-#this will be executed for each frame.
+    line1.set_ydata( func( xdata, i*0.02 ))
+    line2.set_ydata( func( i*0.05, xdata ))
 
-swinging_sine = animation.FuncAnimation(fig, update, frames=1000, interval=50)
-pl.show()
+swinging_sine = animation.FuncAnimation( fig, update, np.arange(1,200), interval=50)
 
-raw_input('done?')
+#swinging_sine.save('explicit_animation.mp4')
+
+plt.show()
+
